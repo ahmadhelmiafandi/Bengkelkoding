@@ -43,6 +43,15 @@ class PeriksaPasienController extends Controller
 
         $obatIds = json_decode($request->obat_json, true);
 
+        // Validasi stok obat sebelum menyimpan
+        $obats = Obat::whereIn('id', $obatIds)->get();
+        foreach ($obats as $obat) {
+            // Kita asumsikan setiap obat yang diresepkan mengurangi 1 stok
+            if ($obat->stok < 1) {
+                return back()->with('error', 'Stok obat ' . $obat->nama_obat . ' habis. Silakan pilih obat lain.');
+            }
+        }
+
         $periksa = Periksa::create([
             'id_daftar_poli' => $request->id_daftar_poli,
             'tgl_periksa' => now(),
@@ -55,6 +64,9 @@ class PeriksaPasienController extends Controller
                 'id_periksa' => $periksa->id,
                 'id_obat' => $idObat,
             ]);
+
+            // Pengurangan stok
+            Obat::where('id', $idObat)->decrement('stok', 1);
         }
 
         return redirect()->route('periksa-pasien.index')->with('success', 'Data periksa berhasil disimpan.');

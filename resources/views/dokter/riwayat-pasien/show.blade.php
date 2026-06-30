@@ -102,11 +102,25 @@
 
         {{-- Total Biaya --}}
         <div class="card bg-base-100 shadow-sm rounded-2xl border border-slate-200">
-            <div class="card-body px-6 py-5 flex items-center justify-between">
-                <span class="font-bold text-slate-700">Total Biaya Periksa</span>
-                <span class="text-2xl font-bold text-[#2d4499]">
-                    Rp {{ number_format($periksa->biaya_periksa, 0, ',', '.') }}
-                </span>
+            <div class="card-body px-6 py-5 flex flex-col gap-2">
+                <div class="flex items-center justify-between text-slate-500">
+                    <span class="font-medium">Total Harga Obat</span>
+                    <span class="font-semibold">
+                        Rp {{ number_format($periksa->biaya_periksa - 150000, 0, ',', '.') }}
+                    </span>
+                </div>
+                <div class="flex items-center justify-between text-slate-500 pb-4 border-b border-slate-200">
+                    <span class="font-medium">Biaya Jasa Dokter</span>
+                    <span class="font-semibold">
+                        Rp 150.000
+                    </span>
+                </div>
+                <div class="flex items-center justify-between pt-2">
+                    <span class="font-bold text-slate-700">Total Keseluruhan</span>
+                    <span class="text-2xl font-bold text-[#2d4499]">
+                        Rp {{ number_format($periksa->biaya_periksa, 0, ',', '.') }}
+                    </span>
+                </div>
             </div>
         </div>
 

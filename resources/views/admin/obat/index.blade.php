@@ -36,6 +36,7 @@
                             <th class="px-6 py-4 border-b">Nama Obat</th>
                             <th class="px-6 py-4 border-b">Kemasan</th>
                             <th class="px-6 py-4 border-b">Harga</th>
+                            <th class="px-6 py-4 border-b text-center">Stok</th>
                             <th class="px-6 py-4 border-b text-right">Aksi</th>
                         </tr>
                     </thead>
@@ -58,6 +59,22 @@
 
                             <td class="px-6 py-4 font-semibold text-slate-800">
                                 Rp {{ number_format($obat->harga, 0, ',', '.') }}
+                            </td>
+
+                            <td class="px-6 py-4 text-center">
+                                @if($obat->stok > 5)
+                                    <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-600">
+                                        {{ $obat->stok }}
+                                    </span>
+                                @elseif($obat->stok > 0 && $obat->stok <= 5)
+                                    <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-amber-100 text-amber-600">
+                                        {{ $obat->stok }} (Menipis)
+                                    </span>
+                                @else
+                                    <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-red-100 text-red-600">
+                                        Habis
+                                    </span>
+                                @endif
                             </td>
 
                             <td class="px-6 py-4 text-right">
@@ -93,7 +110,7 @@
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="4" class="text-center py-12 text-slate-400">
+                            <td colspan="5" class="text-center py-12 text-slate-400">
                                 <i class="fas fa-inbox text-3xl mb-3 block"></i>
                                 Belum ada data obat
                             </td>

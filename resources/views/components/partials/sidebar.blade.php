@@ -10,17 +10,17 @@
                     Poliklinik
                 </div>
                 
-                @if(request()->is('*admin*'))
+                @if(auth()->user()->role === 'admin')
                 <span
                     class="text-[10px] font-bold uppercase tracking-wider bg-indigo-400/20 text-indigo-300 border border-indigo-400/30 px-2 py-0.5 rounded-md">
                     Admin
                 </span>
-                @elseif(request()->is('*dokter*'))
+                @elseif(auth()->user()->role === 'dokter')
                 <span
                     class="text-[10px] font-bold uppercase tracking-wider bg-purple-400/20 text-purple-300 border border-purple-400/30 px-2 py-0.5 rounded-md">
                     Dokter
                 </span>
-                @elseif(request()->is('*pasien*'))
+                @elseif(auth()->user()->role === 'pasien')
                 <span
                     class="text-[10px] font-bold uppercase tracking-wider bg-amber-400/20 text-amber-300 border border-amber-400/30 px-2 py-0.5 rounded-md">
                     Pasien
@@ -40,7 +40,7 @@
         @endphp
 
         {{-- ==================== ADMIN ==================== --}}
-        @if(request()->is('*admin*'))
+        @if(auth()->user()->role === 'admin')
 
         <p class="text-xs font-bold uppercase tracking-widest text-indigo-400 px-3 mb-3">
             Menu Admin
@@ -76,7 +76,7 @@
         @endif
 
         {{-- ==================== PASIEN ==================== --}}
-        @if(request()->is('*pasien*'))
+        @if(auth()->user()->role === 'pasien')
 
         <p class="text-xs uppercase tracking-widest text-indigo-400 px-3 mb-3 mt-6">
             Menu Pasien
@@ -97,7 +97,7 @@
         @endif
 
         {{-- ==================== DOKTER ==================== --}}
-        @if(request()->is('*dokter*'))
+        @if(auth()->user()->role === 'dokter')
 
         <p class="text-xs uppercase tracking-widest text-indigo-400 px-3 mb-3 mt-6">
             Menu Dokter
